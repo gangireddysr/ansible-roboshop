@@ -22,9 +22,9 @@
 
 #Creating the instance then printing the output
 
-  # - name: print the ec2_output
-  #   ansible.builtin.debug: 
-  #     msg: "{{ ec2_output }}" 
+  - name: print the ec2_output
+    ansible.builtin.debug: 
+      msg: "{{ ec2_output }}" 
 
   # - name: print public_ip
   #   ansible.builtin.debug: 
