@@ -6,11 +6,12 @@
     sg_id: sg-0fa27da592684b3f7
     zone_id: "Z09552593JUGZ1EDVVGFV"
     domain_name: "purini.shop"
-    instance:  #this is list to creating the instance 
-    - mongodb
-    - redis
-    - mysql
-    - rabbitmq
+    # we can pass instances through command line using -e
+    # instance:  #this is list to creating the instance 
+    # - mongodb
+    # - redis
+    # - mysql
+    # - rabbitmq
   tasks:
   - name: create ec2 instance  
     amazon.aws.ec2_instance:
