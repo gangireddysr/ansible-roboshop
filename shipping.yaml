@@ -66,6 +66,7 @@
     ansible.builtin.copy:
       src: shipping.service
       dest: /etc/systemd/system/shipping.service
+    become: true 
 
   - name: import shipping data into mysql
     community.mysql.mysql_db:
@@ -80,11 +81,15 @@
     - /app/db/app-user.sql 
     - /app/db/master-data.sql
 
-  - name: daemon reload enable and start
-    ansible.builtin.systemd_service:
-      name: shipping
-      enabled: true
-      state: started
+  - name: Reload systemd to apply new service
+    ansible.builtin.systemd:
       daemon_reload: true
     become: true
+
+- name: Enable and start shipping service
+  ansible.builtin.systemd:
+    name: shipping
+    enabled: true
+    state: started
+  become: true
   
