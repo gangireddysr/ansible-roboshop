@@ -86,10 +86,10 @@
       daemon_reload: true
     become: true
 
-- name: Enable and start shipping service
-  ansible.builtin.systemd:
-    name: shipping
-    enabled: true
-    state: started
-  become: true
+  - name: Enable and start shipping service
+    ansible.builtin.systemd:
+      name: shipping
+      enabled: true
+      state: started
+    become: true
   
