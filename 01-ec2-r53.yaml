@@ -8,6 +8,9 @@
     domain_name: "purini.shop"
     instance:  #this is list to creating the instance 
     - mongodb
+    - redis
+    - mysql
+    - rabbitmq
   tasks:
   - name: create ec2 instance  
     amazon.aws.ec2_instance:
@@ -22,9 +25,9 @@
 
 #Creating the instance then printing the output
 
-  - name: print the ec2_output
-    ansible.builtin.debug: 
-      msg: "{{ ec2_output }}" 
+  # - name: print the ec2_output
+  #   ansible.builtin.debug: 
+  #     msg: "{{ ec2_output }}" 
 
   # - name: print public_ip
   #   ansible.builtin.debug: 
@@ -36,13 +39,13 @@
   #     msg: "{{ item.instance[0].private_ip_address }}"
   #   loop: "{{ec2_output.results}}"    
 
-  # - name: create route53 record
-  #   amazon.aws.route53:
-  #     state: present
-  #     zone: "{{ domain_name }}"
-  #     record: "{{ item.item }}.{{ domain_name }}" # mongodb.purini.shop
-  #     type: A
-  #     ttl: 1
-  #     value: "{{ item.instances[0].private_ip_address }}"
-  #     overwrite: true
-  #   loop: "{{ ec2_output.results }}" 
+  - name: create route53 record
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}" # mongodb.purini.shop
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true
+    loop: "{{ ec2_output.results }}" 
